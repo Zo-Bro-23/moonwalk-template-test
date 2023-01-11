@@ -1,0 +1,21 @@
+name: Download assets
+on:
+  workflow_dispatch:
+# push:
+#   branches:
+#     - main
+permissions:
+  contents: write
+
+jobs:
+  readme:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Download a file
+        run: curl "https://githubusercontent.zohan.tech?user={USER}&repo={REPO}&path={SOMETHING}.md" -o ./assets/{SOMETHING}.md
+      - uses: stefanzweifel/git-auto-commit-action@v4
+        with:
+          branch: gh-pages
+          create_branch: true
+          push_options: '--force'
